@@ -173,27 +173,28 @@ body {
 
 
 
-    <script src="https://raw.githubusercontent.com/ColtSeals/eqb/refs/heads/gh-pages/usuarios2.js"></script>
+<script src="https://raw.githubusercontent.com/ColtSeals/eqb/gh-pages/usuarios2.js"></script>
 <script>
     function validateLogin() {
-    var usernameInput = document.getElementById("username-input").value;
-    var passwordInput = document.getElementById("password-input").value;
-    
-    // Verificar se o usuário está na lista e a senha está correta
-    var isAuthenticated = users.some(function(user) {
-        return user.username === usernameInput && user.password === passwordInput;
-    });
-    
-    if (isAuthenticated) {
-        // Defina um localStorage para a autenticação
-        localStorage.setItem("authenticated", "true"); // Armazena a autenticação no localStorage
-        
-        // Redireciona para o menu do sistema
-        window.location.href = "https://coltseals.github.io/eqb/menu.html";
-    } else {
-        alert("Credenciais inválidas. Tente novamente.");
+        var usernameInput = document.getElementById("username-input").value;
+        var passwordInput = document.getElementById("password-input").value;
+
+        // Verificar se o usuário está na lista e a senha está correta
+        var isAuthenticated = users.some(function(user) {
+            return user.username === usernameInput && user.password === passwordInput;
+        });
+
+        if (isAuthenticated) {
+            // Defina um localStorage para a autenticação
+            localStorage.setItem("authenticated", "true"); // Armazena a autenticação no localStorage
+
+            // Redireciona para o menu do sistema
+            window.location.href = "https://coltseals.github.io/eqb/menu.html";
+        } else {
+            alert("Credenciais inválidas. Tente novamente.");
+        }
     }
-}
+
     // Adicionar um evento de escuta de tecla ao campo de senha
     document.getElementById("password-input").addEventListener("keyup", function(event) {
         // Verificar se a tecla pressionada é a tecla Enter (código de tecla 13)
@@ -202,6 +203,7 @@ body {
         }
     });
 </script>
+
 
 </body>
 </html>
