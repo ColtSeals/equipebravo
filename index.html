@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAVO VDM</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/ColtSeals/VDM/main/copomeqpb2.png" type="image/png">
+
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: url('bandeira-login.png'); /* URL da sua imagem de fundo */
+    background-size: cover; /* Dimensionar para cobrir */
+    background-position: center; /* Centralizar a imagem */
+    font-family: sans-serif;
+    color: white;
+}
+
+
+
+        
+.container{
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+.circle1{
+    height:200px;
+    width: 200px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    position: absolute;
+    margin-top: -420px;
+    margin-left: -300px;
+}
+.circle2{
+    height:15rem;
+    width: 15rem;
+    border-radius: 50%;
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    position: fixed;
+    top: 60%;
+    left: 55%;
+    transition: 0.2s;
+}
+.circle2:hover{
+    scale: 1.5;
+}
+.form-wrapper{
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 0.7rem;
+    box-shadow: 0px 3px 29px 0px rgba(0,0,0,0.5);
+    z-index: 2;
+    border-right: 0.5px solid white;
+    border-bottom: 0.5px solid white;
+}
+.form-wrapper h1{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.label{
+    color: white;
+    font-weight: bold;
+}
+.input-form{
+    margin-top: 10px;
+    margin-bottom: 40px;
+    padding: 15px;
+    width: 100%;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-family: 'poppins', 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+.input-form::placeholder{
+    color: rgb(156, 156, 156);
+    padding: 10px;
+}
+.form-wrapper a{
+    color: rgb(156, 156, 156);
+    text-decoration: none;
+    transition: 0.3s;
+}
+.form-wrapper a:hover{
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-submit{
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    font-size: medium;
+    font-weight: bolder;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: 0.4s;
+}
+.btn-submit:hover{
+    background-color: rgba(255, 255, 255, 1);
+}
+
+#rodape {
+    background-image: linear-gradient(to right, #000000, #333333); /* Gradiente preto */
+    color: white; /* Cor do texto */
+    text-align: center; /* Texto centralizado */
+    padding: 20px 0; /* Espaçamento interno superior e inferior */
+    position: relative; /* Para posicionar a linha vermelha */
+}
+
+.faixa-preta {
+    background: linear-gradient(to right, #000000, #333333); /* Gradiente preto */
+    height: 20px; /* Altura da faixa preta em degradê */
+}
+
+.linha-vermelha {
+    background-image: linear-gradient(to right, #ff0000, #cc0000); /* Gradiente vermelho */
+    height: 3px; /* Altura da linha vermelha em degradê */
+    width: 100%; /* Largura total da linha vermelha */
+    position: absolute; /* Posicionamento absoluto para a linha vermelha */
+    bottom: 0; /* Alinhar a linha vermelha na parte inferior */
+    left: 0; /* Alinhar a linha vermelha à esquerda */
+}
+
+.texto-rodape {
+    font-size: 14px; /* Tamanho da fonte */
+    margin-top: 10px; /* Espaço entre a faixa e o texto */
+}
+
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+
+            <h1><img src="https://raw.githubusercontent.com/ColtSeals/VDM/gh-pages/LOGIN.png" alt="Logo" style="width: 150px; height: auto;"></h1>
+            <form action="#" id="login-form">
+                <label class="label" for="Username">Usuário</label>
+                <input class="input-form" type="text" id="username-input" placeholder="Seu login" required> 
+                
+                <label class="label" for="Password">Senha</label>
+                <input class="input-form" type="password" id="password-input" placeholder="Sua Senha" required>
+            </form>
+            <a href="#">Solicite seu acesso!</a>
+            <button type="button" class="btn-submit" onclick="validateLogin()">LOGIN</button>
+        </div>
+    </div>
+
+<div id="rodape">
+    <div class="faixa"></div>
+    <div class="texto-rodape">Desenvolvido pelo CB-PM Luanque & CB-PM Jefferson - Equipe "Bravo" do COPOM⚡ - 2023</div>
+</div>
+
+
+
+
+    <script src="https://raw.githubusercontent.com/ColtSeals/eqb/refs/heads/gh-pages/usuarios2.js"></script>
+<script>
+    function validateLogin() {
+    var usernameInput = document.getElementById("username-input").value;
+    var passwordInput = document.getElementById("password-input").value;
+    
+    // Verificar se o usuário está na lista e a senha está correta
+    var isAuthenticated = users.some(function(user) {
+        return user.username === usernameInput && user.password === passwordInput;
+    });
+    
+    if (isAuthenticated) {
+        // Defina um localStorage para a autenticação
+        localStorage.setItem("authenticated", "true"); // Armazena a autenticação no localStorage
+        
+        // Redireciona para o menu do sistema
+        window.location.href = "https://coltseals.github.io/eqb/menu.html";
+    } else {
+        alert("Credenciais inválidas. Tente novamente.");
+    }
+}
+    // Adicionar um evento de escuta de tecla ao campo de senha
+    document.getElementById("password-input").addEventListener("keyup", function(event) {
+        // Verificar se a tecla pressionada é a tecla Enter (código de tecla 13)
+        if (event.keyCode === 13) {
+            validateLogin(); // Chame a função validateLogin quando Enter for pressionado
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh; /* Definir altura mínima para a página */
+            font-family: 'Arial', sans-serif;
+        }
+
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.8em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .titulo {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        main {
+            display: flex;
+            padding: 35px;
+            flex-direction: column;
+            width: 85%;
+            min-height: 60vh; /* Definir altura mínima para o main */
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1; /* Fazer o main ocupar o espaço restante */
+        }
+
+        .container-file {
+            width: 100%;
+            padding: 20px;
+            border: 2px dashed #aaa;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: border 0.3s ease;
+        }
+
+        .container-file:hover {
+            border-color: #333;
+        }
+
+        .container-file.selected {
+            border: 2px solid #4CAF50; /* Alterado para 2px solid para manter a mesma largura da borda */
+            background-color: #d3e9d4;
+        }
+
+        .container-file.selected h3 {
+            display: none; /* Oculta o elemento h3 quando o contêiner está selecionado */
+        }
+
+        .container-file h3 {
+            margin-bottom: 10px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        #clear-button {
+            display: none;
+        }
+
+        .custom-file-upload {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #829782;
+        }
+
+        .containerPossuiFoto {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Adicione margem inferior para espaçamento */
+        }
+        
+        .containerPossuiFoto label {
+            font-size: 1.2em;
+            margin-right: 5px; /* Adicione margem direita para espaçamento entre o rótulo e a caixa de seleção */
+        }
+
+       /* Estilos para os checkboxes personalizados */
+       .custom-checkbox {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .custom-checkbox input {
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .checkmark {
+        height: 20px;
+        width: 20px;
+        background-color: #eee;
+        border-radius: 3px;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+    }
+
+    .custom-checkbox input:checked~.checkmark {
+        background-color: #4CAF50;
+        border: none;
+    }
+
+    .checkmark:after {
+        content: "\2713";
+        color: white;
+        font-size: 12px;
+        display: none;
+    }
+
+    .custom-checkbox input:checked~.checkmark:after {
+        display: flex;
+    }
+
+
+
+        
+
+        button {
+            background-color: #aa0b0b;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        #divPossuiFotoPDF {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .btnAnalisar {
+            background-color: #45a049;
+        }
+
+        .btnAnalisar:hover {
+            background-color: #74c278;
+        }
+
+        .btnLimpar {
+            background-color: #aa0b0b;
+        }
+
+        .btnLimpar:hover {
+            background-color: #c46363;
+        }
+
+        .btnCopiar {
+            background-color: #2347a8;
+        }
+
+        .btnCopiar:hover {
+            background-color: #697db4;
+        }
+
+        /* Estilo para o nome do arquivo */
+        #file-name {
+            font-style: italic;
+            color: #777;
+        }
+
+        .containerTextArea {
+            position: relative;
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .containerTextArea h3 {
+            width: 100%;
+            text-align: left;
+        }
+
+        .textArea {
+            width: 100%;
+            font-size: 1.3em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            resize: vertical;
+            margin-bottom: 0px;
+            outline: none;
+        }
+
+        #textAreaResultado {
+            text-transform: uppercase;
+        }
+
+        .contCaracteres {
+            width: 100%;
+            text-align: end;
+            margin-right: 10px;
+            font-size: 0.8rem;
+            color: #afafaf;
+        }
+
+        .informationPDF {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .containerPossuiFoto {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #avisoFlutuante {
+            position: fixed; /* Fixa a posição do elemento */
+            top: 10px; /* Posiciona o elemento no topo da janela de visualização */
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);/* Cor de fundo */
+            border-radius: 8px;
+            color: #fff; /* Cor do texto */
+            padding: 10px; /* Espaçamento interno */
+            display: none; /* Inicialmente oculto */
+            z-index: 9999; /* Garante que o aviso flutuante esteja sempre na frente de outros elementos */
+        }
+        
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 80px;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }

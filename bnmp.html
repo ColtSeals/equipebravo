@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>BNMP</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="titulo">BNMP</h1>
+    </header>
+    <main>
+        <h3>Insira o arquivo em pdf contendo o mandado de prisão</h3>
+        <div class="container-file" id="file-container">
+            <div id="file-info">
+                <label for="file-upload" class="custom-file-upload" id="custom-upload">Selecionar arquivo</label>
+                <div class="informationPDF">
+                    <span id="file-name"></span>
+                    <button id="clear-button" onclick="clearFile()">Limpar</button>
+                </div>
+            </div>
+
+            <input id="file-upload" type="file" accept="application/pdf" onchange="updateFileName(); clearTextAreas()">
+            <!-- Botão de análise, visível apenas se um arquivo for selecionado -->
+            <div id="analyze-button-container">
+                <div class="containerPossuiFoto" id="divPossuiFotoPDF">
+                    <label for="checkPossuiFotoPDF" class="custom-checkbox">
+                        <input type="checkbox" name="possuiFoto" id="checkPossuiFotoPDF">
+                        Possui foto?
+                        <div class="checkmark"></div>
+                    </label>
+                </div>
+
+            </div>
+            <button class="btnAnalisar" id="btnAnalisarPDF" onclick="analyzePDF()"> Analisar pdf</button>
+        </div>
+        <div class="containerTextArea" id="containerInicial">
+            <h3>Ou</h3>
+            <textarea name="" id="textAreaInicial" cols="30" rows="10" class="textArea"
+                placeholder="Insira o texto do mandado de prisão aqui..."></textarea>
+            <span class="contCaracteres" id="contCaracteresInicial">0 caracteres</span>
+            <div class="containerPossuiFoto" id="divPossuiFotoTextArea">
+                <label for="possuiFotoTextArea" class="custom-checkbox">
+                    <input type="checkbox" name="possuiFoto" id="possuiFotoTextArea">
+                    Possui foto?
+                    <div class="checkmark"></div>
+                </label>
+            </div>
+            <div class="containerBtn">
+                <button class="btn btnAnalisar" id="btnAnalisar" onclick="analyzeText()">Analisar</button>
+                <button class="btn btnLimpar" id="limparTextAreaManual">Limpar</button>
+
+            </div>
+        </div>
+
+        <div class="containerTextArea">
+            <h3>Resultado</h3>
+            <textarea name="" id="textAreaResultado" cols="30" rows="10" class="textArea"></textarea>
+            <span class="contCaracteres" id="contCaracteresResultado">0 caracteres</span>
+            <div class="containerBtn">
+                <button class="btn btnCopiar" id="btnCopiar" onclick="copiarTextoFinal()">Copiar</button>
+            </div>
+
+        </div>
+        <!-- Adicione uma div para a mensagem flutuante -->
+        <div id="avisoFlutuante">Texto copiado!</div>
+    </main>
+    <footer>
+        <h4>Cb PM Jefferson Eq. "B"</h4>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.min.js"></script>
+    <script src="./js/script.js" defer></script>
+     <script>
+      // Verifique se o cookie de autenticação existe
+      if (document.cookie.indexOf("authenticated=true") === -1) {
+          // Redirecione para a página de login (login.html) se não estiver autenticado
+          window.location.href = "login.html";
+      }
+    
+      // Adicione um event listener para o ícone de logout
+      document.getElementById('logout-icon').addEventListener('click', function() {
+          // Expirar o cookie de autenticação
+          document.cookie = "authenticated=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+          // Redirecionar para a página de login
+          window.location.href = "login.html";
+      });
+    
+
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - SUPERVISOR-COPOM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #373e57;
+  color: #ccc8db;
+}
+
+.container {
+  background-color: #151728;
+  display: flex;
+  max-width: 1600px;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.left-side {
+  width: 260px;
+  border-right: 1px solid #272a3a;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  background-color: #151728;
+  overflow: auto;
+  flex-shrink: 0;
+}
+@media screen and (max-width: 930px) {
+  .left-side.active {
+    z-index: 4;
+  }
+  .left-side.active > *:not(.logo) {
+    opacity: 1;
+    transition: 0.3s 0.2s;
+  }
+  .left-side.active .left-side-button svg:first-child {
+    opacity: 0;
+  }
+  .left-side.active .left-side-button svg:last-child {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  .left-side:not(.active) {
+    width: 56px;
+    overflow: hidden;
+  }
+  .left-side:not(.active) > *:not(.logo):not(.left-side-button) {
+    opacity: 0;
+  }
+  .left-side:not(.active) .logo {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    transform-origin: bottom;
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+  }
+}
+
+.right-side {
+  width: 280px;
+  flex-shrink: 0;
+  margin-left: auto;
+  overflow: auto;
+  background-color: #151728;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 1210px) {
+  .right-side {
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: 0.3s;
+    height: 100%;
+    transform: translateX(280px);
+    z-index: 4;
+  }
+  .right-side.active {
+    transform: translatex(0);
+  }
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #181d2f;
+}
+
+.logo {
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  height: 68px;
+  line-height: 68px;
+  letter-spacing: 4px;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, #151728 0%, #151728 76%, rgba(21, 23, 40, 0) 100%);
+}
+
+.side-title {
+  font-family: "DM Sans", sans-serif;
+  color: #5c5e6e;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.side-wrapper {
+  padding: 30px;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.side-menu svg {
+  margin-right: 16px;
+  width: 16px;
+}
+.side-menu a {
+  text-decoration: none;
+  color: #9c9cab;
+  display: flex;
+  align-items: center;
+}
+.side-menu a:hover {
+  color: #fff;
+}
+.side-menu a:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.follow-me {
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  overflow: hidden;
+  color: #9c9cab;
+  padding: 0 20px;
+  height: 52px;
+  flex-shrink: 0;
+  border-top: 1px solid #272a3a;
+  position: relative;
+}
+.follow-me svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.follow-text {
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.follow-me:hover .follow-text {
+  transform: translateY(100%);
+}
+.follow-me:hover .developer {
+  top: 0;
+}
+
+.developer {
+  position: absolute;
+  color: #fff;
+  left: 0;
+  top: -100%;
+  display: flex;
+  transition: 0.3s;
+  padding: 0 20px;
+  align-items: center;
+  background-color: #272a3a;
+  width: 100%;
+  height: 100%;
+}
+
+.developer img {
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.search-bar {
+  height: 60px;
+  background-color: #151728;
+  z-index: 3;
+  position: relative;
+}
+.search-bar input {
+  height: 100%;
+  width: 100%;
+  display: block;
+  background-color: transparent;
+  border: none;
+  padding: 0 54px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3e%3cpath d='M508.9 478.7L360 330a201.6 201.6 0 0045.2-127.3C405.3 90.9 314.4 0 202.7 0S0 91 0 202.7s91 202.6 202.7 202.6c48.2 0 92.4-17 127.3-45.2L478.7 509c4.2 4.1 11 4.1 15 0l15.2-15.1c4.1-4.2 4.1-11 0-15zm-306.2-116c-88.3 0-160-71.8-160-160s71.7-160 160-160 160 71.7 160 160-71.8 160-160 160z' data-original='%23000000' class='active-path' data-old_color='%23000000' fill='%235C5D71'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 25px 50%;
+  color: #fff;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+}
+.search-bar input::placeholder {
+  color: #5c5d71;
+}
+
+.main-container {
+  padding: 20px;
+  flex-grow: 1;
+  overflow: auto;
+  background-color: #24273b;
+}
+
+.profile {
+  position: relative;
+  height: 40vh;
+  min-height: 250px;
+  max-height: 350px;
+  z-index: 1;
+}
+.profile-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+}
+.profile:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  background-image: url("https://images.unsplash.com/photo-1508247967583-7d982ea01526?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(50px);
+  opacity: 0.7;
+}
+
+.profile-menu {
+  position: absolute;
+  bottom: 0;
+  padding-left: 200px;
+  background: #151728;
+  width: 100%;
+  display: flex;
+  border-radius: 0 0 4px 4px;
+}
+
+.profile-menu-link {
+  padding: 20px 16px;
+  color: #5c5e6e;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.profile-menu-link.active, .profile-menu-link:hover {
+  color: #fff;
+  background-color: #1b1d2e;
+  border-bottom: 3px solid #1488fa;
+}
+
+.profile-avatar {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  z-index: 1;
+  bottom: 16px;
+  left: 24px;
+  width: 150px;
+  height: 150px;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #151728;
+}
+
+.profile-name {
+  margin-left: 24px;
+  margin-bottom: 24px;
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+}
+
+.timeline {
+  display: flex;
+  padding-top: 20px;
+  position: relative;
+  z-index: 2;
+}
+.timeline {
+  display: none; /* Inicia com a timeline oculta */
+}
+.active {
+  font-weight: bold; /* Estilo para indicar link ativo */
+}
+
+.timeline-left {
+  position: absolute;
+  width: 300px;
+  flex-shrink: 0;
+}
+.timeline-right {
+  flex-grow: 1;
+  padding-left: 320px;
+}
+@media screen and (max-width: 768px) {
+  .timeline {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .timeline-right {
+    padding-left: 0;
+    margin-bottom: 20px;
+  }
+  .timeline-left {
+    width: 90%;
+  }
+}
+
+.box {
+  background-color: #151728;
+  border-radius: 4px;
+}
+
+.intro {
+  padding: 20px;
+}
+.intro-title {
+  font-family: "DM Sans", sans-serif;
+  color: #5c5e6e;
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.intro-menu {
+  background-color: #8f98a9;
+  box-shadow: -8px 0 0 0 #8f98a9, 8px 0 0 0 #8f98a9;
+  width: 5px;
+  height: 5px;
+  border: 0;
+  padding: 0;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.info {
+  font-size: 15px;
+}
+.info-item {
+  display: flex;
+  color: #c3c5d5;
+}
+.info-item + .info-item {
+  margin-top: 14px;
+}
+.info-item a {
+  margin-left: 6px;
+  color: #1771d6;
+  text-decoration: none;
+}
+.info-item svg {
+  width: 16px;
+  margin-right: 10px;
+}
+
+.event {
+  position: relative;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.event-wrapper {
+  position: relative;
+}
+
+.event-img {
+  max-width: 100%;
+  display: block;
+  padding-bottom: 12px;
+}
+
+.event-date {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+}
+
+.event-month {
+  background-color: #1687fa;
+  padding: 7px 20px;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+}
+
+.event-day {
+  width: 100%;
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 6px 0;
+  text-align: center;
+}
+
+.event-title {
+  color: #c3c5d5;
+  margin-bottom: 5px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  padding: 0 14px;
+}
+
+.event-subtitle {
+  color: #5c5e6e;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 14px;
+}
+
+.pages {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user + .user {
+  margin-top: 18px;
+}
+
+.user-img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-right: 15px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.username {
+  font-size: 15px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.status-menu {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+.status-menu-item {
+  text-decoration: none;
+  color: #ccc8db;
+  padding: 10px 14px;
+  line-height: 0.7;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  border-radius: 20px;
+}
+.status-menu-item.active, .status-menu-item:hover {
+  background-color: #2e2e40;
+  color: #fff;
+}
+.status-menu-item + .status-menu-item {
+  margin-left: 10px;
+}
+@media screen and (max-width: 500px) {
+  .status-menu {
+    font-size: 14px;
+  }
+  .status-menu-item + .status-menu-item {
+    margin-left: 0;
+  }
+}
+
+.status-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.status-main {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #272a3a;
+  padding-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.status-textarea {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  resize: none;
+  margin-top: 15px;
+  color: #fff;
+  max-width: calc(100% - 70px);
+}
+.status-textarea::placeholder {
+  color: #5c5d71;
+}
+
+.status-actions {
+  display: flex;
+  padding: 10px 20px;
+}
+
+.status-action {
+  text-decoration: none;
+  color: #ccc8db;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+.status-action svg {
+  width: 16px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+@media screen and (max-width: 1320px) {
+  .status-action {
+    width: 16px;
+    overflow: hidden;
+    color: transparent;
+    white-space: nowrap;
+  }
+}
+
+.status-share {
+  background-color: #1b86f9;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-left: auto;
+  box-shadow: 0 0 20px #1b86f9;
+  cursor: pointer;
+}
+
+.album {
+  padding-top: 20px;
+  margin-top: 20px;
+}
+.album .status-main {
+  border: none;
+  display: flex;
+}
+.album .intro-menu {
+  margin-bottom: auto;
+  margin-top: 5px;
+}
+
+.album-detail {
+  width: calc(100% - 110px);
+}
+
+.album-title span {
+  color: #1771d6;
+  cursor: pointer;
+}
+
+.album-date {
+  font-size: 15px;
+  color: #595c6c;
+  margin-top: 4px;
+}
+
+.album-content {
+  padding: 0 20px 20px;
+}
+
+.album-photo {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.album-photos {
+  display: flex;
+  margin-top: 20px;
+  max-height: 30vh;
+}
+
+.album-photos > .album-photo {
+  width: 50%;
+}
+
+.album-right {
+  width: 50%;
+  margin-left: 10px;
+  line-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.album-right .album-photo {
+  height: calc(50% - 10px);
+}
+
+.album-actions {
+  padding: 0 20px 20px;
+}
+
+.album-action {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #a2a4b4;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+}
+.album-action:hover {
+  color: #fff;
+}
+.album-action svg {
+  width: 16px;
+  margin-right: 6px;
+}
+
+.account-button {
+  border: 0;
+  background: 0;
+  color: #64677a;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.account-button svg {
+  width: 20px;
+}
+
+.account-button:not(.right-side-button) + .account-button:before {
+  position: absolute;
+  right: 0px;
+  top: -2px;
+  background-color: #1b86f8;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  content: "";
+  border: 2px solid #151728;
+}
+
+.account-profile {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.account-user {
+  display: inline-flex;
+  align-items: center;
+  color: #64677a;
+  font-weight: 600;
+}
+.account-user span {
+  font-size: 10px;
+  font-weight: normal;
+}
+
+.account {
+  height: 60px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: #151728;
+  z-index: 3;
+  flex-shrink: 0;
+}
+
+.stories {
+  border-bottom: 1px solid #272a3a;
+}
+
+.stories .user-img {
+  border: 2px solid #e2b96c;
+}
+
+.stories .album-date {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.user-status {
+  background-color: #7fd222;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: auto;
+}
+.user-status.offline {
+  background-color: #606a8d;
+}
+.user-status.idle {
+  background-color: #dd1c20;
+}
+
+.contacts .username {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.right-search svg {
+  width: 16px;
+  height: 16px;
+}
+
+.right-search {
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #272a3a;
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+}
+
+.right-search input {
+  padding-right: 10px;
+}
+
+.search-bar-svgs {
+  color: #656679;
+  display: flex;
+}
+
+.search-bar-svgs svg {
+  margin-right: 16px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(36, 39, 59, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: 0.3s;
+}
+@media screen and (max-width: 1210px) {
+  .overlay.active {
+    z-index: 3;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+}
+
+.right-side-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  border: 0;
+  width: 52px;
+  background-color: #1e2031;
+  border-left: 1px solid #272a3a;
+  color: #fff;
+  display: none;
+  cursor: pointer;
+}
+.right-side-button:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #1b86f8;
+  border: 2px solid #1e2031;
+  top: 13px;
+  right: 12px;
+}
+.right-side-button svg {
+  width: 22px;
+}
+@media screen and (max-width: 1210px) {
+  .right-side-button {
+    display: block;
+  }
+}
+
+.left-side-button {
+  display: none;
+}
+@media screen and (max-width: 930px) {
+  .left-side-button {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    height: 60px;
+    background-color: rgba(39, 42, 58, 0.5);
+    border: 0;
+    padding: 0;
+    line-height: 0;
+    color: #fff;
+    border-bottom: 1px solid #272a3a;
+  }
+  .left-side-button svg {
+    transition: 0.2s;
+    width: 24px;
+  }
+  .left-side-button svg:last-child {
+    position: absolute;
+    left: 50%;
+    transform: translate(100%, -50%);
+    top: 50%;
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .profile-avatar {
+    top: -25px;
+    left: 50%;
+    transform: translatex(-50%);
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .profile-img {
+    height: 100px;
+    width: 100px;
+  }
+
+  .profile-name {
+    margin: 5px 0;
+  }
+
+  .profile-menu {
+    padding-left: 0;
+    width: 100%;
+    overflow: auto;
+    justify-content: center;
+  }
+
+  .profile-menu-link {
+    padding: 16px;
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .profile-menu-link:nth-last-child(1),
+.profile-menu-link:nth-last-child(2) {
+    display: none;
+  }
+}
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+  </style>
+
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="container" x-data="{ rightSide: false, leftSide: false }">
+    <div class="left-side" :class="{'active' : leftSide}">
+      <div class="left-side-button" @click="leftSide = !leftSide">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+          viewBox="0 0 24 24">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <div class="logo">COPOM</div>
+      <div class="side-wrapper">
+        <div class="side-title">MENU</div>
+        <div class="side-menu">
+          <a href="https://detecta.sp.gov.br/Home/Login/?query=denied&ReturnUrl=%2f" target="_blank">
+            <i class="fa-brands fa-searchengin" style="margin-right: 10px;"></i>
+            DETECTA
+          </a>
+          <a href="https://telemetria.intranet.policiamilitar.sp.gov.br/" target="_blank">
+            <i class="fa-solid fa-road" style="margin-right: 10px;"></i>
+              
+            TELEMETRIA
+          </a>
+          <a href="https://adfs-opr-gateway.policiamilitar.sp.gov.br/adfs/ls/?RelayState=bI5tS8MwHMS%2FS6B9ZbelD1MHRSxuMrRjrRnq3pQ0%2Bc%2BFpUlI0somfnerr4Xjx3Fw3H2hGnxv1c5KtEBTTXt%2FnP5CW3GBO%2Beph7wk71l5YXhD1ucNqdLyBX%2FCcl9Ur%2FvHp9i%2FVd1qW5PTQIksymVdbMksSB5CrjsqVG46cGYi6QQGwUExmDDdhRa4sMB801uRH703Lkjug3g16t%2FCmFMjRv5djEfDqJQtZaeQSQHKN4LnGCdxymMa4QzaKMUcovaWt9HhZp7O5skha6%2BTcdkZrRw0%2FmwgZ5oDukJrt1NiAOuofNYfQqGFtz18%2FwAAAP%2F%2FAwA%3D&SAMLRequest=fJFNa8MwDIbv%2BxXBdyfOV9uIpFAog8A2xjZ62M11FBpIbC9Sxvbvl6Y7tJfqKF4%2FjySXpIfew27ik33DrwmJg3pfia6RRZZsVnGhZXo8GpnlbSJ13CrZojJFvMLNer0RwQFH6pytRBIqEdREE9aWWFueWypJpSqkSj%2FiHNIUslWo8kRl%2BacIfobeEiz6SkyjBaepI7B6QAI28L57foIZCn507Izr%2F5%2FcDw%2FIutGsxfYhWKo8G2CZa7xy3qdoIhx5XktsT8yeIIr8nPFhr0P87hq0BkPjhjK6ot8YPbzM1Hr%2F6vrO%2FAaPbhw035eeO%2FPZ2yUK%2FnxXYrQsogv5Irv9q%2B0fAAAA%2F%2F8DAA%3D%3D"
+            target="_blank">
+            <i class="fa-solid fa-video" style="margin-right: 10px;"></i>
+            
+            AXON
+          </a>
+          <a href="https://seguranca.sinesp.gov.br/sinesp-seguranca/login.jsf?goto=INFOSEG" target="_blank">
+            <i class="fa-solid fa-list" style="margin-right: 10px;"></i>
+            
+            INFOSEG
+          </a>
+          <a href="http://sistemasopr.intranet.policiamilitar.sp.gov.br/PMESP.CopomOnline/Login/Login" target="_blank">
+            <i class="fa-solid fa-land-mine-on" style="margin-right: 10px;"></i>
+            
+            COPOM ONLINE
+          </a>
+          <a href="http://www.intranet.ssp.sp.gov.br/infocrim/" target="_blank">
+            <i class="fa-solid fa-shield-halved" style="margin-right: 10px;"></i>
+            
+            INFOCRIM 3.0
+          </a>
+          <a href="https://www.google.com/maps/d/viewer?ll=-23.61579089463412%2C-46.58978657745247&z=10&mid=1yw7unZjGrxQcwA8zsFHu5J5JYaVLaQ0"
+            target="_blank">
+            <i class="fa-solid fa-street-view" style="margin-right: 10px;"></i>
+            
+            MAPA COPOM
+          </a>
+          <a href="http://intranet.policiamilitar.sp.gov.br/" target="_blank">
+            <i class="fa-solid fa-house-circle-check" style="margin-right: 10px;"></i>
+            
+            INTRANET
+          </a>
+          <a href="http://sicoordop.intranet.policiamilitar.sp.gov.br/login/index.php" target="_blank">
+            <i class="fa-solid fa-file" style="margin-right: 10px;"></i>
+            
+            SICOORDOP
+          </a>
+          <a href="http://www.intranet.ccb.policiamilitar.sp.gov.br/aplicacoes/sgi/" target="_blank">
+            <i class="fa-solid fa-user" style="margin-right: 10px;"></i>
+            
+            ASST. INDIVIDUAL
+          </a>
+          <a href="http://www.intranet2.dp.policiamilitar.sp.gov.br/boletim-geral/" target="_blank">
+            <i class="fa-solid fa-book-open-reader" style="margin-right: 10px;"></i>
+            
+            BOL. GERAL
+          </a>
+          <a href="http://prdwascr.ccb.policiamilitar.sp.gov.br/intranetcb/boletim-interno-consulta" target="_blank">
+          <i class="fa-solid fa-book-open" style="margin-right: 10px;"></i>
+            
+            BOL. INTERNO
+          </a>
+          <a href="https://portalbnmp.cnj.jus.br/#/pesquisa-peca" target="_blank">
+            <i class="fa-solid fa-handcuffs" style="margin-right: 10px;"></i>
+            
+            BNMP - CNJ
+          </a>
+          <a href="http://sistemasopr.intranet.policiamilitar.sp.gov.br/siopmweb/HSiopm.aspx" target="_blank">
+            <i class="fa-regular fa-file" style="margin-right: 10px;"></i>
+            
+            SIOPM WEB
+          </a>
+          <a href="#" target="_blank">
+            <i class="fa-solid fa-shield" style="margin-right: 10px;"></i>
+            
+            PRODESP
+          </a>
+          <a href="#" target="_blank">
+            <i class="fa-solid fa-id-card-clip" style="margin-right: 10px;"></i>
+            
+            SIRH
+          </a>
+          
+          
+
+        </div>
+      </div>
+
+      <a href="#" class="follow-me" target="_blank">
+        <span class="follow-text">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+            stroke-linejoin="round" class="css-i6dzq1">
+            <path
+              d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+            </path>
+          </svg>
+          Desenvolvido por
+        </span>
+        <span class="developer">
+          <img src="https://pbs.twimg.com/profile_images/1253782473953157124/x56UURmt_400x400.jpg" />
+          CB-PM Luanque
+        </span>
+      </a>
+    </div>
+    <div class="main">
+      <div class="search-bar">
+        <input type="text" placeholder="Search" />
+        <button class="right-side-button" @click="rightSide = !rightSide">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="main-container">
+        <div class="profile">
+          <div class="profile-avatar" width="150px">
+            <img src="https://github.com/ColtSeals/VDM/blob/main/copomeqpb2.png?raw=true" alt="" class="profile-img">
+            <div class="profile-name">COPOM PMESP</div>
+          </div>
+          <img
+            src="https://www.policiamilitar.sp.gov.br/media/ImagemNoticia/2023/5/9f42ab6b-8717-441c-abf8-b3d814853cb2_CA_Desktop.jpeg"
+            alt="" class="profile-cover">
+
+
+
+
+
+          
+          <div class="profile-menu">
+            <a class="profile-menu-link active" href='#' id="profile-menu-cpa-m1">M1</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m2">M2</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m3">M3</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m4">M4</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m5">M5</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m6">M6</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m7">M7</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m8">M8</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m9">M9</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m10">M10</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m11">M11</a>
+            <a class="profile-menu-link" href='#' id="profile-menu-cpa-m12">M12</a>
+           
+          </div>
+        </div>
+
+
+        <div class="timeline" id="timeline-cpa-m1">
+          <div class="timeline-left">
+            <div class="intro box">
+              <div class="intro-title">
+                CPA M1
+                
+              </div>
+              <div class="info">
+                <div class="info-item">
+                 
+                  <i class="fa-solid fa-location-crosshairs" style="margin-right: 10px;"></i>                  
+                  Endereço: <a href="#">Rua das Silveiras, 20</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-map-pin" style="margin-right: 10px;"></i> 
+                  Bairro: <a href="#">Vila Guiomar</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-phone" style="margin-right: 10px;"></i> 
+                  Telefone: <a href="#">49902276</a>
+                </div>
+              </div>
+            </div>
+            <div class="event box">
+              <div class="event-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  class="event-img" />
+                <div class="event-date">
+                  <div class="event-month">Jan</div>
+                  <div class="event-day">01</div>
+                </div>
+                <div class="event-title">Winter Wonderland</div>
+                <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
+              </div>
+            </div>
+            <div class="pages box">
+              <div class="intro-title">
+                Your pages
+                <button class="intro-menu"></button>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
+                  alt="" class="user-img">
+                <div class="username">Chandelio</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+                  alt="" class="user-img">
+                <div class="username">Janet Jolie</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                  alt="" class="user-img">
+                <div class="username">Patrick Watsons</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-right">
+            <div class="status box" id="status-box">
+              <div class="status-menu" id="status-menu">
+                <a class="status-menu-item active" id="status-menu-a" href="#" data-status="EQUIPE A">EQUIPE A</a>
+                <a class="status-menu-item" id="status-menu-b" href="#" data-status="EQUIPE B">EQUIPE B</a>
+                <a class="status-menu-item" id="status-menu-c" href="#" data-status="EQUIPE C">EQUIPE C</a>
+                <a class="status-menu-item" id="status-menu-d" href="#" data-status="EQUIPE D">EQUIPE D</a>
+                <a class="status-menu-item" id="status-menu-e" href="#" data-status="EQUIPE E">EQUIPE E</a>
+              </div>
+<div class="status-main" id="supervisor-info">
+  <img src="https://github.com/ColtSeals/VDM/blob/main/copomeqpb2.png?raw=true" class="status-img">
+  <a class="status-menu-item" id="status-menu-item" href="#">CENTRO DE OPERAÇÕES PMESP</a>
+</div>
+<script>
+  const statusMenuItems = document.querySelectorAll(".status-menu-item");
+const supervisorImage = document.querySelector("#supervisor-info .status-img");
+const supervisorName = document.querySelector("#supervisor-info .status-menu-item");
+
+statusMenuItems.forEach(item => {
+  item.addEventListener("click", function() {
+    const equipe = item.getAttribute("data-status");
+
+    // Aqui você pode mapear as equipes para os respectivos supervisores e imagens
+    const supervisores = {
+      "EQUIPE A": {
+        nome: "SUPERVISOR 1º SGT FULANO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/female-user-profile-on-round-button_icon-icons.com_68317.png"
+      },
+      "EQUIPE B": {
+        nome: "SUPERVISOR 1º SGT BELTRANO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/woman-with-dark-shirt_icon-icons.com_68266.png"
+      },
+      "EQUIPE C": {
+        nome: "SUPERVISOR 1º SGT CACIQUE",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/user-round-button_icon-icons.com_68279.png"
+      },
+      "EQUIPE D": {
+        nome: "SUPERVISOR 1º SGT INDIO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/female-user-with-dress-and-flower-on-hair_icon-icons.com_68315.png"
+      },
+      "EQUIPE E": {
+        nome: "SUPERVISOR 1º SGT TRIBO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/modern-male-user-with-sunglasses_icon-icons.com_68293.png"
+      },
+      // Adicione as demais equipes aqui
+    };
+
+    // Verifica se a equipe selecionada está no objeto de supervisores
+    if (supervisores[equipe]) {
+      const supervisor = supervisores[equipe];
+      supervisorName.textContent = supervisor.nome;
+      supervisorImage.src = supervisor.imagem;
+    }
+  });
+});
+
+</script>
+              <div class="status-actions">
+                <a href="#" class="status-action">
+                  <svg viewBox="-42 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M333.7 123.3c0 33.9-12.2 63.2-36.2 87.2-24 24-53.3 36.1-87.1 36.1h-.1c-33.9 0-63.2-12.1-87.1-36.1-24-24-36.2-53.3-36.2-87.2 0-33.9 12.2-63.2 36.2-87.2 24-24 53.2-36 87-36.1h.2c33.8 0 63.2 12.2 87.1 36.1 24 24 36.2 53.3 36.2 87.2zm0 0"
+                      fill="#ffbb85" />
+                    <path
+                      d="M427.2 424c0 26.7-8.5 48.3-25.3 64.3-16.5 15.7-38.4 23.7-65 23.7H90.2c-26.6 0-48.5-8-65-23.7C8.5 472.3 0 450.7 0 423.9c0-10.2.3-20.4 1-30.2a302.7 302.7 0 0112.1-64.9c3.3-10.3 7.8-20.5 13.4-30.3 5.8-10.2 12.5-19 20.1-26.3a89 89 0 0129-18.2c11.2-4.4 23.7-6.7 37-6.7 5.2 0 10.3 2.2 20 8.5l21 13.5c6.6 4.3 15.7 8.3 27 11.9a107.7 107.7 0 0033 5.3c11 0 22-1.8 33-5.3 11.2-3.6 20.3-7.6 27-12l21-13.4c9.7-6.3 14.7-8.5 20-8.5 13.3 0 25.7 2.3 37 6.7a89 89 0 0128.9 18.2c7.6 7.3 14.4 16.1 20.2 26.3 5.5 9.8 10 20 13.3 30.3a305.5 305.5 0 0112.1 64.9c.7 9.8 1 20 1 30.2zm0 0"
+                      fill="#6aa9ff" />
+                    <path
+                      d="M210.4 246.6h-.1V0c34 0 63.3 12.2 87.2 36.1 24 24 36.2 53.3 36.2 87.2 0 33.9-12.2 63.2-36.2 87.2-24 24-53.3 36.1-87.1 36.1zm0 0"
+                      fill="#f5a86c" />
+                    <path
+                      d="M427.2 424c0 26.7-8.5 48.3-25.3 64.3-16.5 15.7-38.4 23.7-65 23.7H210.2V286.5h3.3c11 0 22-1.8 33-5.3 11.2-3.6 20.3-7.6 27-12l21-13.4c9.7-6.3 14.7-8.5 20-8.5 13.3 0 25.7 2.3 37 6.7a89 89 0 0128.9 18.2c7.6 7.3 14.4 16.1 20.2 26.3 5.5 9.8 10 20 13.3 30.3a305.5 305.5 0 0112.1 64.9c.7 9.8 1 20 1 30.2zm0 0"
+                      fill="#2682ff" />
+                  </svg>
+                  People
+                </a>
+                <a href="#" class="status-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                      d="M87.084 192c-.456-5.272-.688-10.6-.688-16C86.404 78.8 162.34 0 256.004 0s169.6 78.8 169.6 176c0 5.392-.232 10.728-.688 16h.688c0 96.184-169.6 320-169.6 320s-169.6-223.288-169.6-320h.68zm168.92 32c36.392 1.024 66.744-27.608 67.84-64-1.096-36.392-31.448-65.024-67.84-64-36.392-1.024-66.744 27.608-67.84 64 1.096 36.392 31.448 65.024 67.84 64z"
+                      fill="#e21b1b" />
+                  </svg>
+                  Check in
+                </a>
+                <a href="#" class="status-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <circle cx="256" cy="256" r="256" fill="#ffca28" />
+                    <g fill="#6d4c41">
+                      <path
+                        d="M399.68 208.32c-8.832 0-16-7.168-16-16 0-17.632-14.336-32-32-32s-32 14.368-32 32c0 8.832-7.168 16-16 16s-16-7.168-16-16c0-35.296 28.704-64 64-64s64 28.704 64 64c0 8.864-7.168 16-16 16zM207.68 208.32c-8.832 0-16-7.168-16-16 0-17.632-14.368-32-32-32s-32 14.368-32 32c0 8.832-7.168 16-16 16s-16-7.168-16-16c0-35.296 28.704-64 64-64s64 28.704 64 64c0 8.864-7.168 16-16 16z" />
+                    </g>
+                    <path
+                      d="M437.696 294.688c-3.04-4-7.744-6.368-12.736-6.368H86.4c-5.024 0-9.728 2.336-12.736 6.336-3.072 4.032-4.032 9.184-2.688 14.016C94.112 390.88 170.08 448.32 255.648 448.32s161.536-57.44 184.672-139.648c1.376-4.832.416-9.984-2.624-13.984z"
+                      fill="#fafafa" />
+                  </svg>
+                  Mood
+                </a>
+                <a href="https://portableapps.com/" target="_blank" class="status-share">MAPA FORÇA</a>
+              </div>
+            </div>
+            <div class="album box">
+              <div class="status-main">
+                <img src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+                  class="status-img" />
+                <div class="album-detail">
+                  <div class="album-title"><strong>Quan Ha</strong> create new <span>album</span></div>
+                  <div class="album-date">6 hours ago</div>
+                </div>
+                <button class="intro-menu"></button>
+              </div>
+              <div class="album-content">When the bass drops, so do my problems.
+                <div class="album-photos">
+                  <img
+                    src="https://images.unsplash.com/photo-1508179719682-dbc62681c355?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80"
+                    alt="" class="album-photo" />
+                  <div class="album-right">
+                    <img
+                      src="https://images.unsplash.com/photo-1502872364588-894d7d6ddfab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+                      alt="" class="album-photo" />
+                    <img
+                      src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                      alt="" class="album-photo" />
+                  </div>
+                </div>
+              </div>
+              <div class="album-actions">
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                  </svg>
+                  87
+                </a>
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    class="css-i6dzq1" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                  </svg>
+                  20
+                </a>
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    class="css-i6dzq1" viewBox="0 0 24 24">
+                    <path d="M17 1l4 4-4 4" />
+                    <path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4" />
+                    <path d="M21 13v2a4 4 0 01-4 4H3" />
+                  </svg>
+                  13
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        
+        
+        <div class="timeline" id="timeline-cpa-m6">
+          <div class="timeline-left">
+            <div class="intro box">
+              <div class="intro-title">
+                CPA M6
+                
+              </div>
+              <div class="info">
+                <div class="info-item">
+                 
+                  <i class="fa-solid fa-location-crosshairs" style="margin-right: 10px;"></i>                  
+                  Endereço: <a href="#">Rua das Silveiras, 20</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-map-pin" style="margin-right: 10px;"></i> 
+                  Bairro: <a href="#">Vila Guiomar</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-phone" style="margin-right: 10px;"></i> 
+                  Telefone: <a href="#">49902276</a>
+                </div>
+              </div>
+            </div>
+            <div class="event box">
+              <div class="event-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  class="event-img" />
+                <div class="event-date">
+                  <div class="event-month">Jan</div>
+                  <div class="event-day">01</div>
+                </div>
+                <div class="event-title">Winter Wonderland</div>
+                <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
+              </div>
+            </div>
+            <div class="pages box">
+              <div class="intro-title">
+                Your pages
+                <button class="intro-menu"></button>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
+                  alt="" class="user-img">
+                <div class="username">Chandelio</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+                  alt="" class="user-img">
+                <div class="username">Janet Jolie</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                  alt="" class="user-img">
+                <div class="username">Patrick Watsons</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-right">
+            <div class="status box" id="status-box">
+              <div class="status-menu" id="status-menu">
+                <a class="status-menu-item active" id="status-menu-a" href="#" data-status="EQUIPE A">EQUIPE A</a>
+                <a class="status-menu-item" id="status-menu-b" href="#" data-status="EQUIPE B">EQUIPE B</a>
+                <a class="status-menu-item" id="status-menu-c" href="#" data-status="EQUIPE C">EQUIPE C</a>
+                <a class="status-menu-item" id="status-menu-d" href="#" data-status="EQUIPE D">EQUIPE D</a>
+                <a class="status-menu-item" id="status-menu-e" href="#" data-status="EQUIPE E">EQUIPE E</a>
+              </div>
+<div class="status-main" id="supervisor-info">
+  <img src="https://github.com/ColtSeals/VDM/blob/main/copomeqpb2.png?raw=true" class="status-img">
+  <a class="status-menu-item" id="status-menu-item" href="#">CENTRO DE OPERAÇÕES PMESP</a>
+</div>
+<script>
+  const statusMenuItems = document.querySelectorAll(".status-menu-item");
+const supervisorImage = document.querySelector("#supervisor-info .status-img");
+const supervisorName = document.querySelector("#supervisor-info .status-menu-item");
+
+statusMenuItems.forEach(item => {
+  item.addEventListener("click", function() {
+    const equipe = item.getAttribute("data-status");
+
+    // Aqui você pode mapear as equipes para os respectivos supervisores e imagens
+    const supervisores = {
+      "EQUIPE A": {
+        nome: "SUPERVISOR 1º SGT FULANO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/female-user-profile-on-round-button_icon-icons.com_68317.png"
+      },
+      "EQUIPE B": {
+        nome: "SUPERVISOR 1º SGT BELTRANO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/woman-with-dark-shirt_icon-icons.com_68266.png"
+      },
+      "EQUIPE C": {
+        nome: "SUPERVISOR 1º SGT CACIQUE",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/user-round-button_icon-icons.com_68279.png"
+      },
+      "EQUIPE D": {
+        nome: "SUPERVISOR 1º SGT INDIO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/female-user-with-dress-and-flower-on-hair_icon-icons.com_68315.png"
+      },
+      "EQUIPE E": {
+        nome: "SUPERVISOR 1º SGT TRIBO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/modern-male-user-with-sunglasses_icon-icons.com_68293.png"
+      },
+      // Adicione as demais equipes aqui
+    };
+
+    // Verifica se a equipe selecionada está no objeto de supervisores
+    if (supervisores[equipe]) {
+      const supervisor = supervisores[equipe];
+      supervisorName.textContent = supervisor.nome;
+      supervisorImage.src = supervisor.imagem;
+    }
+  });
+});
+
+</script>
+              <div class="status-actions">
+                <a href="#" class="status-action">
+                  <svg viewBox="-42 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M333.7 123.3c0 33.9-12.2 63.2-36.2 87.2-24 24-53.3 36.1-87.1 36.1h-.1c-33.9 0-63.2-12.1-87.1-36.1-24-24-36.2-53.3-36.2-87.2 0-33.9 12.2-63.2 36.2-87.2 24-24 53.2-36 87-36.1h.2c33.8 0 63.2 12.2 87.1 36.1 24 24 36.2 53.3 36.2 87.2zm0 0"
+                      fill="#ffbb85" />
+                    <path
+                      d="M427.2 424c0 26.7-8.5 48.3-25.3 64.3-16.5 15.7-38.4 23.7-65 23.7H90.2c-26.6 0-48.5-8-65-23.7C8.5 472.3 0 450.7 0 423.9c0-10.2.3-20.4 1-30.2a302.7 302.7 0 0112.1-64.9c3.3-10.3 7.8-20.5 13.4-30.3 5.8-10.2 12.5-19 20.1-26.3a89 89 0 0129-18.2c11.2-4.4 23.7-6.7 37-6.7 5.2 0 10.3 2.2 20 8.5l21 13.5c6.6 4.3 15.7 8.3 27 11.9a107.7 107.7 0 0033 5.3c11 0 22-1.8 33-5.3 11.2-3.6 20.3-7.6 27-12l21-13.4c9.7-6.3 14.7-8.5 20-8.5 13.3 0 25.7 2.3 37 6.7a89 89 0 0128.9 18.2c7.6 7.3 14.4 16.1 20.2 26.3 5.5 9.8 10 20 13.3 30.3a305.5 305.5 0 0112.1 64.9c.7 9.8 1 20 1 30.2zm0 0"
+                      fill="#6aa9ff" />
+                    <path
+                      d="M210.4 246.6h-.1V0c34 0 63.3 12.2 87.2 36.1 24 24 36.2 53.3 36.2 87.2 0 33.9-12.2 63.2-36.2 87.2-24 24-53.3 36.1-87.1 36.1zm0 0"
+                      fill="#f5a86c" />
+                    <path
+                      d="M427.2 424c0 26.7-8.5 48.3-25.3 64.3-16.5 15.7-38.4 23.7-65 23.7H210.2V286.5h3.3c11 0 22-1.8 33-5.3 11.2-3.6 20.3-7.6 27-12l21-13.4c9.7-6.3 14.7-8.5 20-8.5 13.3 0 25.7 2.3 37 6.7a89 89 0 0128.9 18.2c7.6 7.3 14.4 16.1 20.2 26.3 5.5 9.8 10 20 13.3 30.3a305.5 305.5 0 0112.1 64.9c.7 9.8 1 20 1 30.2zm0 0"
+                      fill="#2682ff" />
+                  </svg>
+                  People
+                </a>
+                <a href="#" class="status-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                      d="M87.084 192c-.456-5.272-.688-10.6-.688-16C86.404 78.8 162.34 0 256.004 0s169.6 78.8 169.6 176c0 5.392-.232 10.728-.688 16h.688c0 96.184-169.6 320-169.6 320s-169.6-223.288-169.6-320h.68zm168.92 32c36.392 1.024 66.744-27.608 67.84-64-1.096-36.392-31.448-65.024-67.84-64-36.392-1.024-66.744 27.608-67.84 64 1.096 36.392 31.448 65.024 67.84 64z"
+                      fill="#e21b1b" />
+                  </svg>
+                  Check in
+                </a>
+                <a href="#" class="status-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <circle cx="256" cy="256" r="256" fill="#ffca28" />
+                    <g fill="#6d4c41">
+                      <path
+                        d="M399.68 208.32c-8.832 0-16-7.168-16-16 0-17.632-14.336-32-32-32s-32 14.368-32 32c0 8.832-7.168 16-16 16s-16-7.168-16-16c0-35.296 28.704-64 64-64s64 28.704 64 64c0 8.864-7.168 16-16 16zM207.68 208.32c-8.832 0-16-7.168-16-16 0-17.632-14.368-32-32-32s-32 14.368-32 32c0 8.832-7.168 16-16 16s-16-7.168-16-16c0-35.296 28.704-64 64-64s64 28.704 64 64c0 8.864-7.168 16-16 16z" />
+                    </g>
+                    <path
+                      d="M437.696 294.688c-3.04-4-7.744-6.368-12.736-6.368H86.4c-5.024 0-9.728 2.336-12.736 6.336-3.072 4.032-4.032 9.184-2.688 14.016C94.112 390.88 170.08 448.32 255.648 448.32s161.536-57.44 184.672-139.648c1.376-4.832.416-9.984-2.624-13.984z"
+                      fill="#fafafa" />
+                  </svg>
+                  Mood
+                </a>
+                <button class="status-share">Share</button>
+              </div>
+            </div>
+            <div class="album box">
+              <div class="status-main">
+                <img src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+                  class="status-img" />
+                <div class="album-detail">
+                  <div class="album-title"><strong>Quan Ha</strong> create new <span>album</span></div>
+                  <div class="album-date">6 hours ago</div>
+                </div>
+                <button class="intro-menu"></button>
+              </div>
+              <div class="album-content">When the bass drops, so do my problems.
+                <div class="album-photos">
+                  <img
+                    src="https://images.unsplash.com/photo-1508179719682-dbc62681c355?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80"
+                    alt="" class="album-photo" />
+                  <div class="album-right">
+                    <img
+                      src="https://images.unsplash.com/photo-1502872364588-894d7d6ddfab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+                      alt="" class="album-photo" />
+                    <img
+                      src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                      alt="" class="album-photo" />
+                  </div>
+                </div>
+              </div>
+              <div class="album-actions">
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                  </svg>
+                  87
+                </a>
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    class="css-i6dzq1" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                  </svg>
+                  20
+                </a>
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    class="css-i6dzq1" viewBox="0 0 24 24">
+                    <path d="M17 1l4 4-4 4" />
+                    <path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4" />
+                    <path d="M21 13v2a4 4 0 01-4 4H3" />
+                  </svg>
+                  13
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline" id="timeline-cpa-m9">
+          <div class="timeline-left">
+            <div class="intro box">
+              <div class="intro-title">
+                CPA M9
+                
+              </div>
+              <div class="info">
+                <div class="info-item">
+                  <i class="fa-solid fa-location-crosshairs" style="margin-right: 10px;"></i> 
+                  Endereço: <a href="#">Av. Sapopemba, 12.370</a>
+                </div>
+                <div class="info-item">
+                  
+                  <i class="fa-solid fa-map-pin" style="margin-right: 10px;"></i>                   
+                  Bairro: <a href="#">Fazenda da Juta</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-phone" style="margin-right: 10px;"></i> 
+                  Telefone: <a href="#">2010-9090 | 2012-4163</a>
+                </div>
+              </div>
+            </div>
+            <div class="event box">
+              <div class="event-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  class="event-img" />
+                <div class="event-date">
+                  <div class="event-month">Jan</div>
+                  <div class="event-day">01</div>
+                </div>
+                <div class="event-title">Winter Wonderland</div>
+                <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
+              </div>
+            </div>
+            <div class="pages box">
+              <div class="intro-title">
+                Your pages
+                <button class="intro-menu"></button>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
+                  alt="" class="user-img">
+                <div class="username">Chandelio</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+                  alt="" class="user-img">
+                <div class="username">Janet Jolie</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                  alt="" class="user-img">
+                <div class="username">Patrick Watsons</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-right">
+            <div class="status box" id="status-box">
+              <div class="status-menu" id="status-menu">
+                <a class="status-menu-item active" id="status-menu-a" href="#" data-status="EQUIPE A">EQUIPE A</a>
+                <a class="status-menu-item" id="status-menu-b" href="#" data-status="EQUIPE B">EQUIPE B</a>
+                <a class="status-menu-item" id="status-menu-c" href="#" data-status="EQUIPE C">EQUIPE C</a>
+                <a class="status-menu-item" id="status-menu-d" href="#" data-status="EQUIPE D">EQUIPE D</a>
+                <a class="status-menu-item" id="status-menu-e" href="#" data-status="EQUIPE E">EQUIPE E</a>
+              </div>
+              <div class="status-main">
+                <img src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+                  class="status-img">
+                <a class="status-menu-item" id='status-menu-item' href="#">SUPERVISOR 1º SGT FULANO</a>
+              </div>
+              <div class="status-actions">
+                <a href="#" class="status-action">
+                  <svg viewBox="-42 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M333.7 123.3c0 33.9-12.2 63.2-36.2 87.2-24 24-53.3 36.1-87.1 36.1h-.1c-33.9 0-63.2-12.1-87.1-36.1-24-24-36.2-53.3-36.2-87.2 0-33.9 12.2-63.2 36.2-87.2 24-24 53.2-36 87-36.1h.2c33.8 0 63.2 12.2 87.1 36.1 24 24 36.2 53.3 36.2 87.2zm0 0"
+                      fill="#ffbb85" />
+                    <path
+                      d="M427.2 424c0 26.7-8.5 48.3-25.3 64.3-16.5 15.7-38.4 23.7-65 23.7H90.2c-26.6 0-48.5-8-65-23.7C8.5 472.3 0 450.7 0 423.9c0-10.2.3-20.4 1-30.2a302.7 302.7 0 0112.1-64.9c3.3-10.3 7.8-20.5 13.4-30.3 5.8-10.2 12.5-19 20.1-26.3a89 89 0 0129-18.2c11.2-4.4 23.7-6.7 37-6.7 5.2 0 10.3 2.2 20 8.5l21 13.5c6.6 4.3 15.7 8.3 27 11.9a107.7 107.7 0 0033 5.3c11 0 22-1.8 33-5.3 11.2-3.6 20.3-7.6 27-12l21-13.4c9.7-6.3 14.7-8.5 20-8.5 13.3 0 25.7 2.3 37 6.7a89 89 0 0128.9 18.2c7.6 7.3 14.4 16.1 20.2 26.3 5.5 9.8 10 20 13.3 30.3a305.5 305.5 0 0112.1 64.9c.7 9.8 1 20 1 30.2zm0 0"
+                      fill="#6aa9ff" />
+                    <path
+                      d="M210.4 246.6h-.1V0c34 0 63.3 12.2 87.2 36.1 24 24 36.2 53.3 36.2 87.2 0 33.9-12.2 63.2-36.2 87.2-24 24-53.3 36.1-87.1 36.1zm0 0"
+                      fill="#f5a86c" />
+                    <path
+                      d="M427.2 424c0 26.7-8.5 48.3-25.3 64.3-16.5 15.7-38.4 23.7-65 23.7H210.2V286.5h3.3c11 0 22-1.8 33-5.3 11.2-3.6 20.3-7.6 27-12l21-13.4c9.7-6.3 14.7-8.5 20-8.5 13.3 0 25.7 2.3 37 6.7a89 89 0 0128.9 18.2c7.6 7.3 14.4 16.1 20.2 26.3 5.5 9.8 10 20 13.3 30.3a305.5 305.5 0 0112.1 64.9c.7 9.8 1 20 1 30.2zm0 0"
+                      fill="#2682ff" />
+                  </svg>
+                  People
+                </a>
+                <a href="#" class="status-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                      d="M87.084 192c-.456-5.272-.688-10.6-.688-16C86.404 78.8 162.34 0 256.004 0s169.6 78.8 169.6 176c0 5.392-.232 10.728-.688 16h.688c0 96.184-169.6 320-169.6 320s-169.6-223.288-169.6-320h.68zm168.92 32c36.392 1.024 66.744-27.608 67.84-64-1.096-36.392-31.448-65.024-67.84-64-36.392-1.024-66.744 27.608-67.84 64 1.096 36.392 31.448 65.024 67.84 64z"
+                      fill="#e21b1b" />
+                  </svg>
+                  Check in
+                </a>
+                <a href="#" class="status-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <circle cx="256" cy="256" r="256" fill="#ffca28" />
+                    <g fill="#6d4c41">
+                      <path
+                        d="M399.68 208.32c-8.832 0-16-7.168-16-16 0-17.632-14.336-32-32-32s-32 14.368-32 32c0 8.832-7.168 16-16 16s-16-7.168-16-16c0-35.296 28.704-64 64-64s64 28.704 64 64c0 8.864-7.168 16-16 16zM207.68 208.32c-8.832 0-16-7.168-16-16 0-17.632-14.368-32-32-32s-32 14.368-32 32c0 8.832-7.168 16-16 16s-16-7.168-16-16c0-35.296 28.704-64 64-64s64 28.704 64 64c0 8.864-7.168 16-16 16z" />
+                    </g>
+                    <path
+                      d="M437.696 294.688c-3.04-4-7.744-6.368-12.736-6.368H86.4c-5.024 0-9.728 2.336-12.736 6.336-3.072 4.032-4.032 9.184-2.688 14.016C94.112 390.88 170.08 448.32 255.648 448.32s161.536-57.44 184.672-139.648c1.376-4.832.416-9.984-2.624-13.984z"
+                      fill="#fafafa" />
+                  </svg>
+                  Mood
+                </a>
+                <button class="status-share">Share</button>
+              </div>
+            </div>
+            <div class="album box">
+              <div class="status-main">
+                <img src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+                  class="status-img" />
+                <div class="album-detail">
+                  <div class="album-title"><strong>Quan Ha</strong> create new <span>album</span></div>
+                  <div class="album-date">6 hours ago</div>
+                </div>
+                <button class="intro-menu"></button>
+              </div>
+              <div class="album-content">When the bass drops, so do my problems.
+                <div class="album-photos">
+                  <img
+                    src="https://images.unsplash.com/photo-1508179719682-dbc62681c355?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80"
+                    alt="" class="album-photo" />
+                  <div class="album-right">
+                    <img
+                      src="https://images.unsplash.com/photo-1502872364588-894d7d6ddfab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+                      alt="" class="album-photo" />
+                    <img
+                      src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                      alt="" class="album-photo" />
+                  </div>
+                </div>
+              </div>
+              <div class="album-actions">
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                  </svg>
+                  87
+                </a>
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    class="css-i6dzq1" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                  </svg>
+                  20
+                </a>
+                <a href="#" class="album-action">
+                  <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    class="css-i6dzq1" viewBox="0 0 24 24">
+                    <path d="M17 1l4 4-4 4" />
+                    <path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4" />
+                    <path d="M21 13v2a4 4 0 01-4 4H3" />
+                  </svg>
+                  13
+                </a>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+    <div class="right-side" :class="{ 'active': rightSide }">
+      <div class="account">
+        <button class="account-button">
+          <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+            class="css-i6dzq1" viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <path d="M22 6l-10 7L2 6" />
+          </svg>
+        </button>
+        <button class="account-button">
+          <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+            class="css-i6dzq1" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
+          </svg>
+        </button>
+        <span class="account-user">Quan Ha
+          <img src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg" alt=""
+            class="account-profile" alt="">
+          <span>▼</span>
+        </span>
+      </div>
+      <div class="side-wrapper stories">
+        <div class="side-title">STORIES</div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/1102351320567164931/ZCkJgJIH.png" alt="" class="user-img">
+          <div class="username">Lisandro Matos
+            <div class="album-date">12 hours ago</div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/1153966095444992000/1lpIyHaQ.jpg" alt="" class="user-img">
+          <div class="username">Gvozden Boskovsky
+            <div class="album-date">29 minutes ago</div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&auto=format&fit=crop&w=3500&q=80"
+            alt="" class="user-img">
+          <div class="username">Hnek Fortuin
+            <div class="album-date">3 hours ago</div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80"
+            alt="" class="user-img">
+          <div class="username">Lubomir Dvorak
+            <div class="album-date">18 hours ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="side-wrapper contacts">
+        <div class="side-title">CONTACTS</div>
+        <div class="user">
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" class="user-img">
+          <div class="username">Andrei Mashrin
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=046c29138c1335ef8edee7daf521ba50"
+            class="user-img">
+          <div class="username">Aryn Jacobssen
+            <div class="user-status offline"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1575084713138-342cae5f8d00?ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80"
+            class="user-img">
+          <div class="username">Carole Landu
+            <div class="user-status offline"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://images.pexels.com/photos/598745/pexels-photo-598745.jpeg?h=350&auto=compress&cs=tinysrgb"
+            class="user-img">
+          <div class="username">Chineze Afa
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/2452384114/noplz47r59v1uxvyg8ku.png" class="user-img">
+          <div class="username">Mok Kwang
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://randomuser.me/api/portraits/women/63.jpg" class="user-img">
+          <div class="username">Naomi Yepes
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1476493279419-b785d41e38d8?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=61eaea85f1aa3d065400179c78163f15"
+            class="user-img">
+          <div class="username">Shaamikh Ale
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://m.media-amazon.com/images/M/MV5BMjI4NDcyNjQxNl5BMl5BanBnXkFtZTgwMzI4OTM3NjM@._V1_UY256_CR13,0,172,256_AL_.jpg"
+            class="user-img">
+          <div class="username">Sofia Alcocer
+            <div class="user-status idle"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1509380836717-c4320ccf1a6f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=e01c8c45a063daaf6d6e571a32bd6c90"
+            class="user-img">
+          <div class="username">Wen Yahui
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/737221709267374081/sdwta9Oh.jpg" alt="" class="user-img">
+          <div class="username">Leslee Moss
+            <div class="user-status idle"></div>
+          </div>
+        </div>
+      </div>
+      <div class="search-bar right-search">
+        <input type="text" placeholder="Search" />
+        <div class="search-bar-svgs">
+          <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+            class="css-i6dzq1" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+          </svg>
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.34 469.34">
+            <path
+              d="M456.84 76.17l-64-64.06c-16.13-16.13-44.18-16.17-60.37.04L45.77 301.67a10.73 10.73 0 00-2.7 4.59L.41 455.73a10.68 10.68 0 0013.19 13.2l149.33-42.7c1.73-.5 3.3-1.42 4.58-2.7l289.33-286.98c8.06-8.07 12.5-18.78 12.5-30.19s-4.44-22.12-12.5-30.2zM285.99 89.74L325.25 129l-205 205-14.7-29.44a10.67 10.67 0 00-9.55-5.9H78.92L286 89.75zM26.2 443.14l13.9-48.64 34.74 34.74-48.64 13.9zm123.14-35.18L98.3 422.54l-51.5-51.5L61.38 320H89.4l18.38 36.77a10.67 10.67 0 004.77 4.77l36.78 18.39v28.03zm21.33-17.54v-17.09c0-4.04-2.28-7.72-5.9-9.54l-29.43-14.7 205-205 39.26 39.26-208.93 207.07zm271.11-268.7l-47.03 46.61L301 74.6l46.59-47c8.06-8.07 22.1-8.07 30.16 0l64 64c4.03 4.03 6.25 9.38 6.25 15.08s-2.22 11.05-6.22 15.05z" />
+            </svg>
+          <svg stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+            viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="overlay" @click="rightSide = false; leftSide = false" :class="{ 'active': rightSide || leftSide }">
+    </div>
+  </div>
+  <!-- partial -->
+  
+<script>
+  const profileMenuLinks = document.querySelectorAll(".profile-menu-link");
+  
+  profileMenuLinks.forEach(link => {
+    link.addEventListener("click", function() {
+      const targetId = link.getAttribute("id").replace("profile-menu-", "timeline-");
+      const timelines = document.querySelectorAll(".timeline");
+      
+      timelines.forEach(timeline => {
+        if (timeline.getAttribute("id") === targetId) {
+          timeline.style.display = "block";
+        } else {
+          timeline.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+</body>
+
+</html>

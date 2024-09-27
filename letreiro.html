@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letreiro Informativo</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "din-condensed", sans-serif;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tri {
+            fill: rgb(163, 214, 248);
+            stroke: #000;
+            stroke-width: 7;
+        }
+
+        .banner {
+            height: 200px;
+            width: 0;
+            color: white;
+            margin-right: 0px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .banner.max {
+            transition: all 0.3s ease-in-out;
+            margin-right: 10px;
+            width: 1080px;
+        }
+
+        .banner marquee {
+            text-transform: uppercase;
+            font-size: 60px;
+            font-weight: bold;
+            transform: translate(0px, -3px);
+        }
+
+        .banner.max span {
+            display: block;
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #00a2ff 4px, transparent 4px) 0 0,
+                        linear-gradient(to right, #00a2ff 4px, transparent 4px) 0 100%,
+                        linear-gradient(to left, #00a2ff 4px, transparent 4px) 100% 0,
+                        linear-gradient(to left, #00a2ff 4px, transparent 4px) 100% 100%,
+                        linear-gradient(to bottom, #00a2ff 4px, transparent 4px) 0 0,
+                        linear-gradient(to bottom, #00a2ff 4px, transparent 4px) 100% 0,
+                        linear-gradient(to top, #00a2ff 4px, transparent 4px) 0 100%,
+                        linear-gradient(to top, #00a2ff 4px, transparent 4px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+        }
+
+        .box.align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .indicator {
+            width: 60px;
+            height: 60px;
+            background-color: rgb(0, 204, 255);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-container {
+            display: flex;
+            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .preset-buttons button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        @keyframes flickerAnimation {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes flickerBgAnimation {
+            /* rgb(255,239,0) */
+            0% {
+                background: #0750a375;
+            }
+            50% {
+                background: #0750a375;
+            }
+            100% {
+                background: #0750a375;
+            }
+        }
+
+        .flicker {
+            -webkit-animation: flickerAnimation 0.5s infinite;
+            -moz-animation: flickerAnimation 0.5s infinite;
+            -o-animation: flickerAnimation 0.5s infinite;
+            animation: flickerAnimation 0.5s infinite;
+        }
+
+        .flickerbg {
+            -webkit-animation: flickerBgAnimation 1s infinite;
+            -moz-animation: flickerBgAnimation 1s infinite;
+            -o-animation: flickerBgAnimation 1s infinite;
+            animation: flickerBgAnimation 1s infinite;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner" id="banner">
+            <div class="box align">
+                <marquee behavior="scroll" direction="left" scrollamount="9" id="marquee">Digite a frase no campo abaixo.</marquee>
+            </div>
+        </div>
+        <div class="indicator" id="indicator">
+            <svg height="150" width="150">
+                <polygon points="25,10 40,40 10,40" class='tri'/>
+            </svg>
+        </div>
+    </div>
+    <div class="input-container">
+        <input type="text" id="messageInput" placeholder="Digite sua mensagem">
+        <button onclick="updateMarquee()">Enviar</button>
+    </div>
+    <div class="preset-buttons">
+        <button onclick="setPresetMessage('É EXPRESSAMENTE PROIBIDO PORTAR APARELHO DE TELEFONIA MÓVEL “CELULAR” NO AMBIENTE DE TRABALHO.')">Frase 01</button>
+        <button onclick="setPresetMessage('NÃO TENSIONE O CABO DO HEADSET. ESSA PRÁTICA DANIFICA O EQUIPAMENTO.')">Frase 02</button>
+        <button onclick="setPresetMessage('É PROIBIDO ALIMENTAR-SE DURANTE A EXECUÇÃO DO SERVIÇO. ESSA PRÁTICA PREJUDICA AS COMUNICAÇÕES NA REDE DE RÁDIO.')">Frase 03</button>
+        <button onclick="setPresetMessage('NÃO É PERMITIDO JORNAIS, REVISTAS OU QUAISQUER OUTROS TIPOS DE MATERIAIS ALHEIOS AO SERVIÇO, DURANTE O DESENVOLVIMENTO DOS TRABALHOS NAS CABINES.')">Frase 04</button>
+    </div>
+
+    <script>
+        const indicator = document.getElementById("indicator");
+        const banner = document.getElementById("banner");
+        const marquee = document.getElementById("marquee");
+        const messageInput = document.getElementById("messageInput");
+
+        function start() {
+            indicator.classList.add("flicker");
+            setTimeout(() => {
+                indicator.classList.remove("flicker");
+                banner.classList.add("max");
+                banner.classList.add("flickerbg");
+                // Load the saved message from local storage
+                const savedMessage = localStorage.getItem('marqueeMessage');
+                if (savedMessage) {
+                    marquee.textContent = savedMessage;
+                }
+            }, 3000);
+        }
+
+        function updateMarquee() {
+            const message = messageInput.value;
+            if (message) {
+                marquee.textContent = message;
+                localStorage.setItem('marqueeMessage', message);
+            }
+        }
+
+        function setPresetMessage(message) {
+            marquee.textContent = message;
+            localStorage.setItem('marqueeMessage', message);
+        }
+
+        start();
+    </script>
+</body>
+</html>

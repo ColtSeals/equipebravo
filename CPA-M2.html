@@ -1,0 +1,161 @@
+<div class="timeline" id="timeline-cpa-m2">
+          <div class="timeline-left">
+            <div class="intro box">
+              <div class="intro-title">
+                CPA M2
+                
+              </div>
+              <div class="info">
+                <div class="info-item">
+                 
+                  <i class="fa-solid fa-location-crosshairs" style="margin-right: 10px;"></i>                  
+                  Endereço: <a href="#">Rua das Silveiras, 20</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-map-pin" style="margin-right: 10px;"></i> 
+                  Bairro: <a href="#">Vila Guiomar</a>
+                </div>
+                <div class="info-item">
+                  <i class="fa-solid fa-phone" style="margin-right: 10px;"></i> 
+                  Telefone: <a href="#">49902276</a>
+                </div>
+              </div>
+            </div>
+            <div class="event box">
+              <div class="event-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  class="event-img" />
+                <div class="event-date">
+                  <div class="event-month">Jan</div>
+                  <div class="event-day">01</div>
+                </div>
+                <div class="event-title">Winter Wonderland</div>
+                <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
+              </div>
+            </div>
+            <div class="pages box">
+              <div class="intro-title">
+                Your pages
+                
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
+                  alt="" class="user-img">
+                <div class="username">Chandelio</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+                  alt="" class="user-img">
+                <div class="username">Janet Jolie</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                  alt="" class="user-img">
+                <div class="username">Patrick Watsons</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-right">
+            <div class="status box" id="status-box">
+              <div class="status-menu" id="status-menu">
+                <a class="status-menu-item active" id="status-menu-a" href="#" data-status="EQUIPE A">EQUIPE A</a>
+                <a class="status-menu-item" id="status-menu-b" href="#" data-status="EQUIPE B">EQUIPE B</a>
+                <a class="status-menu-item" id="status-menu-c" href="#" data-status="EQUIPE C">EQUIPE C</a>
+                <a class="status-menu-item" id="status-menu-d" href="#" data-status="EQUIPE D">EQUIPE D</a>
+                <a class="status-menu-item" id="status-menu-e" href="#" data-status="EQUIPE E">EQUIPE E</a>
+              </div>
+<div class="status-main" id="supervisor-info">
+  <img src="https://github.com/ColtSeals/VDM/blob/main/copomeqpb2.png?raw=true" class="status-img">
+  <a class="status-menu-item" id="status-menu-item" href="#">CENTRO DE OPERAÇÕES PMESP</a>
+</div>
+<script>
+  const statusMenuItems = document.querySelectorAll(".status-menu-item");
+const supervisorImage = document.querySelector("#supervisor-info .status-img");
+const supervisorName = document.querySelector("#supervisor-info .status-menu-item");
+
+statusMenuItems.forEach(item => {
+  item.addEventListener("click", function() {
+    const equipe = item.getAttribute("data-status");
+
+    // Aqui você pode mapear as equipes para os respectivos supervisores e imagens
+    const supervisores = {
+      "EQUIPE A": {
+        nome: "SUPERVISOR 1º SGT FULANO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/female-user-profile-on-round-button_icon-icons.com_68317.png"
+      },
+      "EQUIPE B": {
+        nome: "SUPERVISOR 1º SGT BELTRANO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/woman-with-dark-shirt_icon-icons.com_68266.png"
+      },
+      "EQUIPE C": {
+        nome: "SUPERVISOR 1º SGT CACIQUE",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/user-round-button_icon-icons.com_68279.png"
+      },
+      "EQUIPE D": {
+        nome: "SUPERVISOR 1º SGT INDIO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/female-user-with-dress-and-flower-on-hair_icon-icons.com_68315.png"
+      },
+      "EQUIPE E": {
+        nome: "SUPERVISOR 1º SGT TRIBO",
+        imagem: "https://cdn.icon-icons.com/icons2/876/PNG/512/modern-male-user-with-sunglasses_icon-icons.com_68293.png"
+      },
+      // Adicione as demais equipes aqui
+    };
+
+    // Verifica se a equipe selecionada está no objeto de supervisores
+    if (supervisores[equipe]) {
+      const supervisor = supervisores[equipe];
+      supervisorName.textContent = supervisor.nome;
+      supervisorImage.src = supervisor.imagem;
+    }
+  });
+});
+
+</script>
+              <div class="status-actions">
+                
+                
+                
+                <a href="https://portableapps.com/" target="_blank" class="status-share">MAPA FORÇA</a>
+              </div>
+            </div>
+            <div class="album box">
+              <div class="status-main">
+                <img src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+                  class="status-img" />
+                <div class="album-detail">
+                  <div class="album-title"><strong>Quan Ha</strong> create new <span>album</span></div>
+                  <div class="album-date">Data</div>
+                </div>
+                
+              </div>
+              <div class="album-content">When the bass drops, so do my problems.
+                <div class="album-photos">
+                  <img
+                    src="https://images.unsplash.com/photo-1508179719682-dbc62681c355?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80"
+                    alt="" class="album-photo" />
+                  <div class="album-right">
+                    <img
+                      src="https://images.unsplash.com/photo-1502872364588-894d7d6ddfab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+                      alt="" class="album-photo" />
+                    <img
+                      src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                      alt="" class="album-photo" />
+                  </div>
+                </div>
+              </div>
+              <div class="album-actions">
+                <div class="intro-title">
+                Supervisores CPA M2
+                
+              </div>
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
